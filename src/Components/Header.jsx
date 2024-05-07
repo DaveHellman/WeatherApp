@@ -1,6 +1,7 @@
 import NumberInput from "./NumberInput"
 import StyledLabel from "./StyledLabel"
 import PropTypes from "prop-types"
+import TodaysDate from "./TodaysDate"
 
 export default function Header({
     latitude,
@@ -34,7 +35,9 @@ export default function Header({
                     <p className="">Stockholm by default</p>
                 </div>
             </form>
-            <div className="flex-1"></div>
+            <div className="flex-1 text-end">
+                <TodaysDate />
+            </div>
         </header>
     )
 }
