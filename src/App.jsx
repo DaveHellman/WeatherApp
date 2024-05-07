@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react"
 import useWeatherData from "./Hooks/useWeatherData"
 import Header from "./Components/Header.jsx"
+import Card from "./Components/Card.jsx"
 
 function App() {
     const [latitude, setLatitude] = useState(59.3294)
@@ -42,18 +43,11 @@ function App() {
             {data.data ? (
                 <div className="flex flex-row flex-wrap">
                     {data.data.map((item) => (
-                        <div
+                        <Card
                             key={item.time}
-                            className="rounded-lg bg-white p-4 shadow-md"
-                        >
-                            <p className="mb-2">
-                                {new Date(item.time).toLocaleTimeString([], {
-                                    hour: "2-digit",
-                                    minute: "2-digit",
-                                })}
-                            </p>
-                            <p>{item.temperature}°C</p>
-                        </div>
+                            hour={item.time}
+                            temperature={item.temperature}
+                        />
                     ))}
                 </div>
             ) : null}
