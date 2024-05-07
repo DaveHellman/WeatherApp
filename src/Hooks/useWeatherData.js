@@ -20,7 +20,7 @@ const useWeatherData = (params) => {
 
             const { time, temperature_2m } = data.hourly
             const transformedData = time.map((time, index) => ({
-                time: new Date(time).toLocaleTimeString([], {
+                time: new Date(time).toLocaleTimeString("sv-SE", {
                     hour: "2-digit",
                     minute: "2-digit",
                 }),
