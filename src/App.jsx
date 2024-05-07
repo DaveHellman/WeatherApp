@@ -1,35 +1,64 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useMemo, useState } from "react"
+import useWeatherData from "./Hooks/useWeatherData"
+import Header from "./Components/Header.jsx"
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [latitude, setLatitude] = useState(59.3294)
+    const [longitude, setLongitude] = useState(18.0687)
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    const handleSetLatitude = (newLatitude) => {
+        setLatitude(parseFloat(newLatitude))
+    }
+
+    const handleSetLongitude = (newLongitude) => {
+        setLongitude(parseFloat(newLongitude))
+    }
+
+    const params = useMemo(
+        () => ({
+            latitude: latitude,
+            longitude: longitude,
+            current: "temperature_2m",
+            hourly: "temperature_2m",
+            timezone: "Europe/Berlin",
+        }),
+        [latitude, longitude]
+    )
+    const data = useWeatherData(params)
+
+    return (
+        <>
+            <Header
+                latitude={latitude}
+                setLatitude={handleSetLatitude}
+                longitude={longitude}
+                setLongitude={handleSetLongitude}
+                callCounter={data.callCounter}
+            />
+            {data.loading ? <p>Loading...</p> : null}
+            {data.error ? (
+                <p className="text-red-500">Error: {data.error.message}</p>
+            ) : null}
+            {data.data ? (
+                <div className="flex flex-row flex-wrap">
+                    {data.data.map((item) => (
+                        <div
+                            key={item.time}
+                            className="rounded-lg bg-white p-4 shadow-md"
+                        >
+                            <p className="mb-2">
+                                {new Date(item.time).toLocaleTimeString([], {
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                })}
+                            </p>
+                            <p>{item.temperature}°C</p>
+                        </div>
+                    ))}
+                </div>
+            ) : null}
+        </>
+    )
 }
 
 export default App
