@@ -1,0 +1,12 @@
+body {
+  all: unset;
+}
+
+div {
+  all: unset;
+}
+
+p {
+  all: unset;
+  display: block;
+}

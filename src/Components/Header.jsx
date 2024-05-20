@@ -2,6 +2,39 @@ import NumberInput from "./NumberInput"
 import StyledLabel from "./StyledLabel"
 import PropTypes from "prop-types"
 import TodaysDate from "./TodaysDate"
+import styled from "styled-components"
+
+const HeaderStyled = styled.header`
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+`
+
+const TitleStyled = styled.h1`
+    font-size: 2rem;
+    font-weight: bold;
+    flex: 1;
+`
+
+const FormStyled = styled.form`
+    display: flex;
+`
+
+const InputDivStyled = styled.div`
+    margin: 0 0.5rem;
+`
+const CounterDivStyled = styled.div`
+    margin-left: 0.5rem;
+    display: flex;
+    flex-direction: column;
+`
+
+const DateDivStyled = styled.div`
+    text-align: end;
+    flex: 1;
+`
 
 export default function Header({
     latitude,
@@ -11,34 +44,34 @@ export default function Header({
     callCounter,
 }) {
     return (
-        <header className="flex justify-between bg-gray-800 p-4 text-white">
-            <h1 className="flex-1 text-4xl font-bold">Weather</h1>
-            <form className="flex">
-                <div className="mx-1">
+        <HeaderStyled>
+            <TitleStyled>Weather</TitleStyled>
+            <FormStyled>
+                <InputDivStyled>
                     <StyledLabel htmlFor="latitude">Latitude</StyledLabel>
                     <NumberInput
                         id="latitude"
                         value={latitude}
                         onChange={setLatitude}
                     />
-                </div>
-                <div className="mx-1">
+                </InputDivStyled>
+                <InputDivStyled>
                     <StyledLabel htmlFor="longitude">Longitude</StyledLabel>
                     <NumberInput
                         id="longitude"
                         value={longitude}
                         onChange={setLongitude}
                     />
-                </div>
-                <div className="ml-1 flex flex-col">
+                </InputDivStyled>
+                <CounterDivStyled>
                     <StyledLabel>api calls: {callCounter}</StyledLabel>
                     <p className="">Stockholm by default</p>
-                </div>
-            </form>
-            <div className="flex-1 text-end">
+                </CounterDivStyled>
+            </FormStyled>
+            <DateDivStyled>
                 <TodaysDate />
-            </div>
-        </header>
+            </DateDivStyled>
+        </HeaderStyled>
     )
 }
 

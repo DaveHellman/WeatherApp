@@ -1,4 +1,12 @@
+import styled from "styled-components"
+
+const DateStyle = styled.p`
+    font-size: 1.5rem;
+    font-weight: bold;
+`
+
 export default function TodaysDate() {
     const date = new Date().toLocaleDateString("sv-SE")
-    return <p className="text-lg font-semibold">{date}</p>
+
+    return <DateStyle>{date}</DateStyle>
 }
