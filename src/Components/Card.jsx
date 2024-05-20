@@ -56,5 +56,4 @@ export default Card
 Card.propTypes = {
     hour: PropTypes.string.isRequired,
     temperature: PropTypes.number.isRequired,
-    //ref: PropTypes.object,
 }
